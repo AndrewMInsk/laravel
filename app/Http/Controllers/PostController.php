@@ -4,62 +4,65 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use JetBrains\PhpStorm\NoReturn;
 
 class PostController extends Controller
 {
-public function index(){
-    $posts = Post::where([['is_published','=', 1]])->get();
-    $posts = Post::all();
+    public function index()
+    {
+        $posts = Post::where([['is_published', '=', 1]])->get();
+        $posts = Post::all();
 
-    foreach($posts->all() as $post){
+        foreach ($posts->all() as $post) {
 
-     //   dump($post->title);
+            //   dump($post->title);
+
+        }
+        return view('post/index', compact('posts'));
+    }
+
+    public function create()
+    {
+        return view('post/create');
+    }
+
+    #[NoReturn] public function store(Request $request)
+    { // тут я сделал неверно, по конвенции нужно отдельный метод
+
+        $data = $request->validate(['title' => 'required', 'content' => 'required', 'image' => '', 'id' => '']);
+        Post::updateOrCreate(['id' => $data['id']], $data);
+        return redirect()->route('posts.index');
+    }
+
+    public function show(Post $post)
+    { // или {  show($id){
+        return view('post.show', compact('post'));
+    }
+
+    public function edit(Post $post)
+    { // или {  show($id){
+        return view('post.edit', compact('post'));
+    }
+
+    public function update(Request $request, Post $post)
+    { // или {  show($id){
+        $data = $request->validate(['title' => 'required', 'content' => 'required', 'image' => '']);
+        $test = $post->update($data);
+
+        return redirect()->route('posts.index');
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return redirect()->route('posts.index');
 
     }
-    return view('posts', compact('posts'));
-}
-    public function create(){
-        $postsArr = [[
-            'title' => 'ti1tylewew we',
-            'content'=> '1tsdfest',
-            'image'=> 'tsd1fest',
-            'likes'=> 5,
-            'is_published'=>  1,
-        ],
-            [
-                'title' => 'ti2tylewew we',
-                'content'=> 'ts2dfest',
-                'image'=> 'tsdf2est',
-                'likes'=> 32,
-                'is_published'=> 0,
-            ]
-        ];
-        Post::create([
-            'title' => '777ti2tylewew we',
-            'content'=> '777ts2dfest',
-            'image'=> 'tsdf2est',
-            'likes'=> 32,
-            'is_published'=> 0,
-        ]);
-    }
-    public function update(){
-        $post = Post::where([['id','=', 1]])->get();
-        $post->first()->update([
-            'title' => 'updat22e',
 
-        ]);
-    }
-    public function delete(){
-        $post = Post::withTrashed()->where([['id','=', 2]])->first(); // поиск в мусорке //добавить use SoftDeletes и в миграцию             $table->softDeletes();
-
-        dump($post->delete());
-
-
-    }
-    public function firstOrCreate(){ //  updateOrCreate
-        $post = Post::where([['title','=', 1231]])->first();
-
-        $myPost = Post::firstOrCreate(['title'=> 123123],['title'=> 123122, 'content'=> 123122]);
+    public function firstOrCreate()
+    { //  or updateOrCreate
+        $post = Post::where([['title', '=', 1231]])->first();
+        $myPost = Post::firstOrCreate(['title' => 123123], ['title' => 123122, 'content' => 123122]);
         dump($myPost);
     }
 }
