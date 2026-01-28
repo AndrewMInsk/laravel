@@ -9,13 +9,14 @@ class PostController extends Controller
 {
 public function index(){
     $posts = Post::where([['is_published','=', 1]])->get();
+    $posts = Post::all();
 
     foreach($posts->all() as $post){
 
-        dump($post->content);
+     //   dump($post->title);
 
     }
-
+    return view('posts', compact('posts'));
 }
     public function create(){
         $postsArr = [[
@@ -51,8 +52,14 @@ public function index(){
     public function delete(){
         $post = Post::withTrashed()->where([['id','=', 2]])->first(); // поиск в мусорке //добавить use SoftDeletes и в миграцию             $table->softDeletes();
 
-        dump($post->restore());
+        dump($post->delete());
 
 
+    }
+    public function firstOrCreate(){ //  updateOrCreate
+        $post = Post::where([['title','=', 1231]])->first();
+
+        $myPost = Post::firstOrCreate(['title'=> 123123],['title'=> 123122, 'content'=> 123122]);
+        dump($myPost);
     }
 }
