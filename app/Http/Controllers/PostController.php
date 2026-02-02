@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use JetBrains\PhpStorm\NoReturn;
 
@@ -10,14 +12,11 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::where([['is_published', '=', 1]])->get();
-        $posts = Post::all();
+        $post = Post::find(61);
+        $category = Category::find(1);
+        $tag = Tag::find(1);
+        $posts = $category->posts;
 
-        foreach ($posts->all() as $post) {
-
-            //   dump($post->title);
-
-        }
         return view('post/index', compact('posts'));
     }
 
