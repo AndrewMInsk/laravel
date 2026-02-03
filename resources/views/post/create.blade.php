@@ -36,6 +36,18 @@
         <input type="text" class="form-control" id="tet" name="image" aria-describedby="emailHelp">
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
     </div>
+    <select name="category_id">
+        @foreach ($categories as $category)
+            <option value="{{$category->id}}">{{ $category->title }}</option>
+        @endforeach
+
+    </select>
+    <select name="tags[]" multiple>
+        @foreach ($tags as $tag)
+            <option value="{{$tag->id}}">{{ $tag->title }}</option>
+        @endforeach
+
+    </select>
 
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
