@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SomeRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\PostTag;
@@ -33,10 +34,10 @@ class PostController extends Controller
         return view('post/create', compact('categories', 'tags'));
     }
 
-    #[NoReturn] public function store(Request $request)
-    { // тут я сделал неверно, по конвенции нужно отдельный метод
+    #[NoReturn] public function store(SomeRequest $request)
+    {
 
-        $data = $request->validate(['title' => 'required|strind', 'content' => 'required', 'image' => '', 'id' => '', 'category_id' => '', 'tags' => '']);
+        $data = $request->validated();
         $tags = $data['tags'];
         unset($data['tags']); // тэги нам в дате не нужны
         $post = Post::updateOrCreate(['title' => $data['title']], $data);

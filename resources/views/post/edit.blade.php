@@ -39,7 +39,8 @@
         </div>
         <div class="mb-3">
             <label for="image" class="form-label">image</label>
-            <input type="text" class="form-control" id="tet" name="image" aria-describedby="emailHelp" {{$post->image}}>
+            <input type="text" class="form-control" id="tet" name="image" aria-describedby="emailHelp" value="{{$post->image}}">
+            <img src="{{$post->image}}" alt="">
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         </div>
         <select name="category_id">

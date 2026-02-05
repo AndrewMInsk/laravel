@@ -4,6 +4,8 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MainController;
 use \App\Http\Controllers\MyPlaceController;
+use App\Http\Controllers\Post\IndexController;
+use App\Http\Controllers\Post\StoreController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,9 +30,18 @@ Route::get('/', [MainController::class, 'index'])->name('home.index');
 Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
 Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+// временно заменим на однометодные контроллеры  Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+
+Route::group([], function () {
+    Route::get('/posts', IndexController::class)->name('posts.index'); // так типа круче
+    Route::post('/posts', StoreController::class)->name('posts.store'); // так типа круче
+});
+
+
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+// временно заменим на однометодные контроллеры  Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+
+//Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
 Route::patch('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
