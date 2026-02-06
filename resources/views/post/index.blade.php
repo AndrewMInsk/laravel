@@ -15,7 +15,8 @@
             @method('DELETE')
             <button type="submit">Удалить</button>
         </form>
-   
+
     @endforeach
+    {{$posts->links()}}
     <a href="{{route('posts.create')}}">Создать</a>
 @endsection
