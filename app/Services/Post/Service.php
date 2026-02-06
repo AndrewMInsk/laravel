@@ -8,7 +8,7 @@ use App\Models\Post;
 class Service
 {
     public function index(){
-        return Post::simplePaginate(10);
+        return Post::paginate(10);
 
     }
     public function store($data){

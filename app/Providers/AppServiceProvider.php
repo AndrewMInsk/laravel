@@ -22,7 +22,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::defaultView('pagination::bootstrap-5');
         Paginator::defaultSimpleView('pagination::simple-bootstrap-5');
-     //   Paginator::useBootstrapFive();
+        Paginator::useBootstrapFive();
+
+        //   Paginator::useBootstrapFive();
 
         //
     }

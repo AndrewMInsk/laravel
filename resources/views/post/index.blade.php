@@ -17,6 +17,6 @@
         </form>
 
     @endforeach
-    {{$posts->links()}}
+    {{$posts->onEachSide(2)->links()}}
     <a href="{{route('posts.create')}}">Создать</a>
 @endsection
