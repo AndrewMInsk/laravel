@@ -18,7 +18,7 @@ class StoreController extends BaseController
     {
         $data = $request->validated();
         $post = $this->service->store($data);
-        return new PostResource($post);
+        return new PostResource($post); // это для  API
         return redirect()->route('posts.index');
 
     }

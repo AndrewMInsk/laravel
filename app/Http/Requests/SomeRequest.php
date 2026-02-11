@@ -22,6 +22,6 @@ class SomeRequest extends FormRequest
     public function rules(): array
     {
 
-        return ['title' => 'required|string', 'content' => 'required', 'image' => '', 'id' => '', 'category_id' => '', 'tags' => ''];
+        return ['title' => 'required|string', 'content' => 'required', 'image' => '', 'id' => '', 'category'=>'', 'category_id' => '', 'tags' => '', 'tags.*.title' => ''];
     }
 }

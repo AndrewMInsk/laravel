@@ -32,7 +32,7 @@ class IndexController extends BaseController
             $posts = $posts->paginate($perPage, ['*'], 'page', $page);
 
             //  dd($page, $perPage);
-         //  return PostResource::collection($posts);
+           return PostResource::collection($posts);
             // dd($tag2->posts); // работает чере связи по конвенции
             return view('post/index', compact('posts'));
         }

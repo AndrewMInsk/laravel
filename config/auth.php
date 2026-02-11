@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web', // для api тут api
+        'guard' => 'api', // для api тут api
         'passwords' => 'users',
     ],
 

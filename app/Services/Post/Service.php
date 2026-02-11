@@ -5,6 +5,8 @@ namespace App\Services\Post;
 use App\Http\Filters\PostFilter;
 use App\Http\Requests\FilterRequest;
 use App\Http\Requests\SomeRequest;
+use App\Models\Category;
+use App\Models\Categorytest;
 use App\Models\Post;
 
 class Service
@@ -31,9 +33,20 @@ class Service
         if(!isset($data['tags'])){
             $data['tags'] = [];
         }
-        $tags = $data['tags'];
-        unset($data['tags']); // тэги нам в дате не нужны
+        if(isset($data['category'])) {
 
+            $category = $data['category'];
+        }
+        $tags = $data['tags'];
+        unset($data['tags'], $data['category']); // тэги нам в дате не нужны
+
+if(isset($category) && !isset($category['id'])){
+   Category::create($category);
+   Post::create($data);
+
+}
+
+     //   dd($tags, $category);
         $post = Post::updateOrCreate(['title' => $data['title']], $data);
 //        foreach ($tags as $tag) {
 //            PostTag::firstOrCreate([

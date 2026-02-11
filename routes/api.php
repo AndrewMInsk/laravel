@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Post\IndexController;
+use App\Http\Controllers\Post\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,5 +37,6 @@ Route::group([
     'middleware' => 'jwt.auth',
 
 ], function ($router) {
-Route::get('/posts', IndexController::class)->name('posts.index'); // так типа круче
+Route::get('/posts', IndexController::class); // так типа круче
+Route::post('/posts', StoreController::class); // так типа круче
 });
