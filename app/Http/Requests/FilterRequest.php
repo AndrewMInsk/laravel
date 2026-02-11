@@ -21,6 +21,6 @@ class FilterRequest extends FormRequest
      */
     public function rules(): array
     {
-        return ['title' => 'string', 'content' => 'string', 'image' => '', 'id' => '', 'category_id' => '', 'tags' => ''];
+        return ['title' => 'string', 'content' => 'string', 'image' => '', 'id' => '', 'category_id' => '', 'tags' => '', 'page'=>'', 'per_page' => ''];
     }
 }

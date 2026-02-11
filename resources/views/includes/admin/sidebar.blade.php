@@ -21,7 +21,7 @@
                     <li class="nav-item">
                         <a href="./index.html" class="nav-link active">
                             <i class="nav-icon bi bi-circle"></i>
-                            <p>Posts {{$posts->total()}}</p>
+                            <p>Posts {{--$posts->total()--}}</p>
                         </a>
                     </li>
 

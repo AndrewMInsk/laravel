@@ -21,8 +21,9 @@ class Service
         }
        $posts = $query->paginate(5);
        $filter = app()->make(PostFilter::class, ['queryParams'=>array_filter($data)]);
-       $posts = Post::filter($filter)->paginate(5);
-       // $posts = Post::where(['id'=>10])->get();
+       $posts = Post::filter($filter); // тут нужно get для API
+
+        // $posts = Post::where(['id'=>10])->get();
         return $posts;
 
     }
