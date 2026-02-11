@@ -36,6 +36,7 @@ class PostController extends Controller
 
     #[NoReturn] public function store(SomeRequest $request)
     {
+        dd(1212);
 
         $data = $request->validated();
         $tags = $data['tags'];

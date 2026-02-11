@@ -2,13 +2,28 @@
 
 namespace App\Services\Post;
 
+use App\Http\Filters\PostFilter;
+use App\Http\Requests\FilterRequest;
 use App\Http\Requests\SomeRequest;
 use App\Models\Post;
 
 class Service
 {
-    public function index(){
-        return Post::paginate(10);
+
+    public function index(FilterRequest $request){
+       $data = $request->validated();
+       $query = Post::query();
+       if(isset($data['category_id'])){
+           $query->where('category_id', $data['category_id']);
+       }
+        if(isset($data['title'])){
+            $query->where('title','like',  '%'.$data['title'].'%');
+        }
+       $posts = $query->paginate(5);
+       $filter = app()->make(PostFilter::class, ['queryParams'=>array_filter($data)]);
+       $posts = Post::filter($filter)->paginate(5);
+       // $posts = Post::where(['id'=>10])->get();
+        return $posts;
 
     }
     public function store($data){
