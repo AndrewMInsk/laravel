@@ -52,6 +52,10 @@ class Post extends Model
     public $someProperty;
     protected $table = 'posts';
 
+    public function getName2Attribute($value) //геттер для name2
+    {
+        return ucfirst($value); // Пример: первая буква заглавная
+    }
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Category::class);

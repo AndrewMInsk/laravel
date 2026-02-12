@@ -80,6 +80,7 @@ class Service
         foreach ($tags as $tag) {
             if(!isset($tag['id'])){
                 $tag =   Tag::create($tag);
+
             }
             else{
                 $tag =   Tag::find($tag['id']);
