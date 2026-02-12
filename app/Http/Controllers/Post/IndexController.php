@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Post;
 
+use App\Components\ImportDataClient;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FilterRequest;
 use App\Http\Resources\Post\PostResource;
@@ -30,7 +31,6 @@ class IndexController extends BaseController
            $page = $data['page']??1;
            $perPage = $data['per_page']??10;
             $posts = $posts->paginate($perPage, ['*'], 'page', $page);
-
             //  dd($page, $perPage);
            return PostResource::collection($posts);
             // dd($tag2->posts); // работает чере связи по конвенции
