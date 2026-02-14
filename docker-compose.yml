@@ -1,0 +1,18 @@
+services:
+  nginx2:
+    image: nginx:latest
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+    ports:
+      - "8876:80"
+    environment:
+      - NGINX_HOST=foobar.com
+      - NGINX_PORT=80
+    container_name: andrew
+    depends_on:
+      - php
+  php:
+    image: php:8.3-fpm
+    volumes:
+      - ./:/var/www
