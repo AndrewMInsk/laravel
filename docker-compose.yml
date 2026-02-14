@@ -12,7 +12,7 @@ services:
     container_name: andrew
     depends_on:
       - php
-  php:
+  app:
     image: php:8.3-fpm
     volumes:
       - ./:/var/www
