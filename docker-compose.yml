@@ -3,16 +3,42 @@ services:
     image: nginx:latest
     volumes:
       - ./:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d
+      - ./_docker/nginx/conf.d/:/etc/nginx/conf.d
     ports:
-      - "8876:80"
+      - 8876:80
     environment:
       - NGINX_HOST=foobar.com
       - NGINX_PORT=80
-    container_name: andrew
+    container_name: andrew_nginx
     depends_on:
-      - php
+      - app
   app:
-    image: php:8.3-fpm
+    build:
+        context: .
+        dockerfile: _docker/app/Dockerfile
     volumes:
       - ./:/var/www
+    depends_on:
+        - db
+    container_name: andrew_app
+  db:
+    image: mysql:8.0
+    restart: always
+    volumes:
+        - ./tmp/db:/var/lib/mysql
+    environment:
+        MYSQL_DATABASE: db_docker
+        MYSQL_ROOT_PASSWORD: root
+    ports:
+        - 8101:3306
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    container_name: andrew_db
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      environment:
+          PMA_HOST: db
+          MYSQL_ROOT_PASSWORD: root
+      depends_on:
+          - db
+      ports:
+          - 3001:80
