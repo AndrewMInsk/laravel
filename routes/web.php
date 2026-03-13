@@ -54,3 +54,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/test-session', function() {
+    session(['test' => 333]);
+    return 'Session test: ' . session('test', 'not set');
+});
+
+Route::get('/check-session', function() {
+    return 'Session value: ' . session('test', 'not set');
+});
